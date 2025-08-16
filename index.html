@@ -250,6 +250,9 @@
           <div style="color:var(--muted); font-size:14px;">Click a thumbnail to load. No autoplay.</div>
         </div>
         <div class="gallery" id="gallery"></div>
+        <div style="text-align:center; margin-top:16px;">
+          <button id="seeMoreBtn" class="btn">Show All</button>
+        </div>
         <div id="playableModal" class="modal" style="display:none;">
           <div class="modal-content">
             <button id="closeModal" class="close-btn" aria-label="Close playable">✕</button>
@@ -295,13 +298,36 @@
         thumb: 'images/3.png',
         src: 'playables/CrystalCravenUpgrade/index.html',
         note: 'idle Mine - Fumb Games'
+      },
+
+  {
+        title: 'Crystal Craven',
+        thumb: 'images/4.png',
+        src: 'playables/CrystalCraven/index.html',
+        note: 'idle Mine - Fumb Games'
+      },
+      
+{
+        title: 'Piggy Collect',
+        thumb: 'images/5.png',
+        src: 'playables/PiggyCollect/index.html',
+        note: 'Bitcoin Miner - Fumb Games'
+      },
+      {
+       title: 'Block Blast',
+        thumb: 'images/6.png',
+        src: 'playables/BlockBlast/index.html',
+        note: 'Bitcoin BlockBlast - Fumb Games'
       }
+
+
+
     ];
 
     // ======== RENDER GALLERY ========
     const g = document.getElementById('gallery');
     g.innerHTML = PLAYABLES.map((p, i) => `
-      <article class="card" data-index="${i}">
+      <article class="card" data-index="${i}" style="${i >= 3 ? 'display:none;' : ''}">
         <div class="thumb">
           <img src="${p.thumb}" alt="Thumbnail for ${p.title}" loading="lazy"/>
           <span class="badge">${p.note || ''}</span>
@@ -311,6 +337,27 @@
         <p>${p.note || ''}</p>
       </article>
     `).join('');
+
+    // Show All button logic (was "See More")
+    const seeMoreBtn = document.getElementById('seeMoreBtn');
+    seeMoreBtn.addEventListener('click', () => {
+      document.querySelectorAll('#gallery .card').forEach(c => c.style.display = '');
+      seeMoreBtn.style.display = 'none';
+
+      // Add collapse button
+      const collapseBtn = document.createElement('button');
+      collapseBtn.textContent = 'Collapse';
+      collapseBtn.className = 'btn';
+      collapseBtn.style.marginTop = '16px';
+      collapseBtn.addEventListener('click', () => {
+        document.querySelectorAll('#gallery .card').forEach((c, i) => {
+          if (i >= 3) c.style.display = 'none';
+        });
+        collapseBtn.remove();
+        seeMoreBtn.style.display = '';
+      });
+      seeMoreBtn.parentElement.appendChild(collapseBtn);
+    });
 
     // ======== INLINE PLAY LOGIC (only one active at a time) ========
     g.addEventListener('click', (e) => {
