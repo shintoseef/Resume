@@ -118,6 +118,36 @@
         max-width: 100%;
       }
     }
+
+    /* Modal styles */
+    .modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 9/16;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .close-btn {
+      position: absolute;
+      top: 8px; right: 8px;
+      background: rgba(0,0,0,0.6);
+      border: none;
+      color: white;
+      font-size: 20px;
+      border-radius: 50%;
+      width: 32px; height: 32px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -220,6 +250,12 @@
           <div style="color:var(--muted); font-size:14px;">Click a thumbnail to load. No autoplay.</div>
         </div>
         <div class="gallery" id="gallery"></div>
+        <div id="playableModal" class="modal" style="display:none;">
+          <div class="modal-content">
+            <button id="closeModal" class="close-btn" aria-label="Close playable">✕</button>
+            <iframe id="playableFrame" src="" style="width:100%; height:100%; border:0; border-radius:12px; display:block;"></iframe>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -285,28 +321,23 @@
       const item = PLAYABLES[idx];
       if (!item) return;
     
-      // Reset any existing iframes back to thumbnails
-      document.querySelectorAll('#gallery .card').forEach((c, i) => {
-        const iframe = c.querySelector('iframe');
-        if (iframe) {
-          const p = PLAYABLES[i];
-          c.querySelector('iframe').outerHTML = `
-            <div class="thumb">
-              <img src="${p.thumb}" alt="Thumbnail for ${p.title}" loading="lazy"/>
-              <span class="badge">${p.note || ''}</span>
-              <div class="play"><button type="button" aria-label="Play ${p.title}">Play</button></div>
-            </div>
-          `;
-        }
-      });
-    
-      // Replace clicked thumb with iframe in portrait aspect ratio
-      const thumbDiv = card.querySelector('.thumb');
-      thumbDiv.outerHTML = `
-        <div class="thumb">
-          <iframe src="${item.src}" style="width:100%; height:100%; border:0; border-radius:12px; display:block;"></iframe>
-        </div>
-      `;
+      // Open modal and set iframe src
+      document.getElementById('playableFrame').src = item.src;
+      document.getElementById('playableModal').style.display = 'flex';
+    });
+
+    // Close modal
+    document.getElementById('closeModal').addEventListener('click', () => {
+      document.getElementById('playableModal').style.display = 'none';
+      document.getElementById('playableFrame').src = '';
+    });
+
+    // Close modal when clicking outside content
+    document.getElementById('playableModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('playableModal')) {
+        document.getElementById('playableModal').style.display = 'none';
+        document.getElementById('playableFrame').src = '';
+      }
     });
 
     // Footer year
