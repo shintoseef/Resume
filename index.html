@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M Touseef – Game Developer Portfolio</title>
+  <meta name="description" content="Portfolio of M Touseef – Game Developer (Unity/C#). Work history, professional links, and playable demos." />
+  <style>
+    :root {
+      --bg: #0e0f12;
+      --panel: #14161b;
+      --muted: #9aa3af;
+      --text: #f5f7fb;
+      --brand: #7c5cff;
+      --brand-2: #39bdf8;
+      --card: #171a21;
+      --ring: rgba(124, 92, 255, .35);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; background: radial-gradient(1200px 600px at 80% -10%, rgba(60,110,255,.12), transparent 60%),
+                      radial-gradient(1200px 600px at 10% 110%, rgba(60,200,255,.10), transparent 60%),
+                      var(--bg);
+      color: var(--text); font: 16px/1.65 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    a { color: var(--brand-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { width: min(1100px, 92vw); margin: 0 auto; }
+
+    header {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(1.2) blur(10px);
+      background: linear-gradient(to bottom, rgba(20,22,27,.9), rgba(20,22,27,.6));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; }
+    .nav a { margin: 0 10px; padding: 8px 12px; border-radius: 10px; }
+    .nav a:hover { background: rgba(255,255,255,.06); text-decoration: none; }
+
+    /* Hero */
+    .hero { display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: center; padding: 42px 0 22px; }
+    .avatar { width: 180px; height: 180px; border-radius: 50%; overflow: hidden; border: 3px solid rgba(255,255,255,.08); box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero h1 { font-size: clamp(28px, 4vw, 38px); margin: 0 0 6px; }
+    .sub { color: var(--muted); margin: 0 0 16px; }
+    .cta { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px;
+      background: linear-gradient(180deg, #1b1f2a, #151823);
+      border: 1px solid rgba(255,255,255,.08);
+      color: var(--text); text-decoration: none; font-weight: 600; box-shadow: 0 6px 20px rgba(0,0,0,.35);
+    }
+    .btn:hover { background: #1a1f2b; }
+    .btn.primary { background: linear-gradient(180deg, #7c5cff, #5d39ff); border-color: rgba(124,92,255,.6); box-shadow: 0 10px 30px var(--ring); }
+
+    /* Cards / sections */
+    section { padding: 26px 0; }
+    .panel { background: var(--panel); border: 1px solid rgba(255,255,255,.06); border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0,0,0,.25); padding: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
+
+    .links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .chip { background: #1a1f29; border: 1px solid rgba(255,255,255,.08); padding: 8px 12px; border-radius: 999px; display:inline-flex; align-items:center; gap:8px; }
+
+    /* Experience */
+    .xp-grid { display: grid; gap: 14px; }
+    .xp { background: var(--card); border: 1px solid rgba(255,255,255,.06); border-radius: 14px; padding: 16px; }
+    .xp h3 { margin: 0 0 6px; font-size: 18px; }
+    .xp .meta { color: var(--muted); font-size: 14px; margin-bottom: 10px; }
+
+    /* Playables gallery */
+    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+    .card { background: var(--card); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; overflow: hidden; position: relative; }
+    .thumb {
+      position: relative;
+      width: 240px;       /* Custom portrait width */
+      height: 426px;      /* Custom portrait height (approx 9:16 ratio) */
+      background: #0d0f14;
+      display: grid;
+      place-items: center;
+      margin: 0 auto;
+    }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .badge { position: absolute; top: 8px; left: 8px; font-size: 12px; background: rgba(0,0,0,.55); padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,.08); }
+    .play {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,.55);
+      opacity: 0;
+      transition: opacity .25s ease;
+      width: 100%;
+      height: 100%;
+    }
+    .card:hover .play { opacity: 1; }
+    .play button {
+      appearance: none; border: none; padding: 12px 16px; border-radius: 12px; font-weight: 700; cursor: pointer;
+      background: linear-gradient(180deg, #7c5cff, #5d39ff); color: white; box-shadow: 0 10px 30px var(--ring);
+    }
+    .card h4 { margin: 10px 12px 6px; font-size: 16px; }
+    .card p { margin: 0 12px 16px; color: var(--muted); font-size: 14px; }
+
+    footer { color: var(--muted); padding: 40px 0; text-align: center; }
+
+    @media (max-width: 720px) {
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .avatar { margin: 0 auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div style="font-weight: 800; letter-spacing: .2px;">M TOUSEEF</div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#links">Links</a>
+        <a href="#playables">Playables</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section aria-label="Intro">
+      <div class="hero panel">
+        <div class="avatar" aria-hidden="true">
+          <!-- Replace with your photo path -->
+          <img src="images/me.jpeg" alt="Portrait of M Touseef" loading="lazy" />
+        </div>
+        <div>
+          <h1>M Touseef — Game Developer (Unity / C#)</h1>
+          <p class="sub">Pakistan • Mobile Games • Prototyping • Ads & Playables • DOTween • URP • C++/C#</p>
+          <div class="cta">
+            <a class="btn primary" href="#playables">View Playables</a>
+            <a class="btn" href="#links">Professional Links</a>
+            <a class="btn" href="#contact">Contact</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT / SKILLS -->
+    <section id="about">
+      <div class="panel">
+        <h2 style="margin:0 0 10px">About</h2>
+        <p>I build fast, fun, and scalable mobile game prototypes and marketing playables. I specialise in <strong>Unity</strong>, <strong>C#</strong>, and performance-minded content for the hyper-casual & casual markets. I’ve collaborated with top publishers and shipped titles with massive scale.</p>
+        <div class="links" style="margin-top: 10px;">
+          <span class="chip">Unity</span>
+          <span class="chip">C#</span>
+          <span class="chip">C++</span>
+          <span class="chip">DOTween</span>
+          <span class="chip">URP</span>
+          <span class="chip">UI/UX for Ads</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="panel">
+        <h2 style="margin:0 0 16px">Experience</h2>
+        <div class="xp-grid">
+          <article class="xp">
+            <h3>Unity Marketing Artist — TapNation</h3>
+            <div class="meta">Remote • ~3 years</div>
+            <p>Produced high-performing playable ads, trailers, and interactive demos for top-grossing mobile titles. Focus on iteration speed, polish, and KPI-driven creatives.</p>
+          </article>
+          <article class="xp">
+            <h3>Collaborations: Homa Games, KobStudio</h3>
+            <div class="meta">Freelance / Remote</div>
+            <p>Prototyped gameplay, optimised assets and pipelines, and delivered creatives used across user acquisition. Experience with games exceeding 100M installs.</p>
+          </article>
+          <article class="xp">
+            <h3>Bachelor’s in Game Development — Lahore Garrison University</h3>
+            <div class="meta">Academics</div>
+            <p>Strong foundation in programming, math, and real-time graphics. Built multiple student projects and tools.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- LINKS -->
+    <section id="links">
+      <div class="panel">
+        <h2 style="margin:0 0 12px">Professional Links</h2>
+        <div class="links">
+          <!-- Replace href values with your real profiles -->
+          <a class="chip" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="chip" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+          <a class="chip" href="https://itch.io/" target="_blank" rel="noopener">itch.io</a>
+          <a class="chip" href="mailto:you@example.com">Email</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLAYABLES -->
+    <section id="playables">
+      <div class="panel">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px;">
+          <h2 style="margin:0">Playables</h2>
+          <div style="color:var(--muted); font-size:14px;">Click a thumbnail to load. No autoplay.</div>
+        </div>
+        <div class="gallery" id="gallery"></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="panel">
+        <h2 style="margin:0 0 12px">Contact</h2>
+        <p>Email: <a href="mailto:you@example.com">you@example.com</a> • Available for remote roles and freelance.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> M Touseef. Built with vanilla HTML/CSS/JS.
+    </div>
+  </footer>
+
+  <script>
+    // ======== CONFIGURE YOUR PLAYABLES HERE ========
+    // Each entry needs: title, thumb (image path), src (iframe URL), note (optional)
+    const PLAYABLES = [
+      {
+        title: 'Pigg Tetris',
+        thumb: 'images/1.png',
+        src: 'playables/Piggytetris/index.html',
+        note: ' Idle Bitcoin Mine - FumbGames '
+      },
+      {
+        title: 'Cart Collect Bitcoins',
+        thumb: 'images/2.png',
+        src: 'playables/CartCollect/index.html',
+        note: 'Idle Mine - Fumb Games'
+      },
+      {
+        title: 'Crystal Craven Upgrade Style playable',
+        thumb: 'images/3.png',
+        src: 'playables/CrystalCravenUpgrade/index.html',
+        note: 'idle Mine - Fumb Games'
+      }
+    ];
+
+    // ======== RENDER GALLERY ========
+    const g = document.getElementById('gallery');
+    g.innerHTML = PLAYABLES.map((p, i) => `
+      <article class="card" data-index="${i}">
+        <div class="thumb">
+          <img src="${p.thumb}" alt="Thumbnail for ${p.title}" loading="lazy"/>
+          <span class="badge">${p.note || ''}</span>
+          <div class="play"><button type="button" aria-label="Play ${p.title}">Play</button></div>
+        </div>
+        <h4>${p.title}</h4>
+        <p>${p.note || ''}</p>
+      </article>
+    `).join('');
+
+    // ======== INLINE PLAY LOGIC (only one active at a time) ========
+    g.addEventListener('click', (e) => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      const card = e.target.closest('.card');
+      const idx = Number(card.dataset.index);
+      const item = PLAYABLES[idx];
+      if (!item) return;
+    
+      // Reset any existing iframes back to thumbnails
+      document.querySelectorAll('#gallery .card').forEach((c, i) => {
+        const iframe = c.querySelector('iframe');
+        if (iframe) {
+          const p = PLAYABLES[i];
+          c.querySelector('iframe').outerHTML = `
+            <div class="thumb">
+              <img src="${p.thumb}" alt="Thumbnail for ${p.title}" loading="lazy"/>
+              <span class="badge">${p.note || ''}</span>
+              <div class="play"><button type="button" aria-label="Play ${p.title}">Play</button></div>
+            </div>
+          `;
+        }
+      });
+    
+      // Replace clicked thumb with iframe in portrait aspect ratio
+      const thumbDiv = card.querySelector('.thumb');
+      thumbDiv.outerHTML = `
+        <div class="thumb">
+          <iframe src="${item.src}" style="width:100%; height:100%; border:0; border-radius:12px; display:block;"></iframe>
+        </div>
+      `;
+    });
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
