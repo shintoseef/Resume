@@ -50,9 +50,14 @@
     .cta { display: flex; gap: 10px; flex-wrap: wrap; }
     .btn {
       display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px;
-      background: linear-gradient(180deg, #1b1f2a, #151823);
       border: 1px solid rgba(255,255,255,.08);
       color: var(--text); text-decoration: none; font-weight: 600; box-shadow: 0 6px 20px rgba(0,0,0,.35);
+      background: linear-gradient(180deg, #1b1f2a, #151823);
+    }
+    .btn.purple {
+      background: linear-gradient(180deg, #7c5cff, #5d39ff);
+      border-color: rgba(124,92,255,.6);
+      box-shadow: 0 10px 30px var(--ring);
     }
     .btn:hover { background: #1a1f2b; }
     .btn.primary { background: linear-gradient(180deg, #7c5cff, #5d39ff); border-color: rgba(124,92,255,.6); box-shadow: 0 10px 30px var(--ring); }
@@ -78,13 +83,21 @@
       position: relative;
       width: 100%;
       aspect-ratio: 9 / 16;
-      max-width: 260px;
+      max-width: 200px;
       background: #0d0f14;
       display: grid;
       place-items: center;
       margin: 0 auto;
+      overflow: hidden;
+      border-radius: 12px;
     }
-    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
     .badge { position: absolute; top: 8px; left: 8px; font-size: 12px; background: rgba(0,0,0,.55); padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,.08); }
     .play {
       position: absolute;
@@ -251,7 +264,7 @@
         </div>
         <div class="gallery" id="gallery"></div>
         <div style="text-align:center; margin-top:16px;">
-          <button id="seeMoreBtn" class="btn">Show All</button>
+          <button id="seeMoreBtn" class="btn purple">Show All</button>
         </div>
         <div id="playableModal" class="modal" style="display:none;">
           <div class="modal-content">
@@ -318,10 +331,41 @@
         thumb: 'images/6.png',
         src: 'playables/BlockBlast/index.html',
         note: 'Bitcoin BlockBlast - Fumb Games'
+      },
+
+{
+       title: 'Robot Rat Killer',
+        thumb: 'images/7.png',
+        src: 'playables/RobotRat/index.html',
+        note: 'Robot Rat Killer - TapNation'
+      },
+
+      {
+       title: 'Doll Dress Up',
+        thumb: 'images/8.png',
+        src: 'playables/DDU/index.html',
+        note: 'Doll Dress Up - TapNation'
+      },
+ {
+       title: 'Guess Thier Answer',
+        thumb: 'images/9.png',
+        src: 'playables/GTA/index.html',
+        note: 'Guess Thier Answer -TapNation'
+      },
+
+       {
+       title: 'Hero Making Tycoon',
+        thumb: 'images/10.png',
+        src: 'playables/HMT/index.html',
+        note: 'Hero Making Tycoon -TapNation'
       }
-
-
-
+,
+ {
+       title: 'Hide And Seek',
+        thumb: 'images/11.png',
+        src: 'playables/HideSeek/index.html',
+        note: 'Hide and Seek - Ozi Games'
+      }
     ];
 
     // ======== RENDER GALLERY ========
@@ -347,7 +391,7 @@
       // Add collapse button
       const collapseBtn = document.createElement('button');
       collapseBtn.textContent = 'Collapse';
-      collapseBtn.className = 'btn';
+      collapseBtn.className = 'btn purple';
       collapseBtn.style.marginTop = '16px';
       collapseBtn.addEventListener('click', () => {
         document.querySelectorAll('#gallery .card').forEach((c, i) => {
