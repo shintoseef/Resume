@@ -76,8 +76,9 @@
     .card { background: var(--card); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; overflow: hidden; position: relative; }
     .thumb {
       position: relative;
-      width: 240px;       /* Custom portrait width */
-      height: 426px;      /* Custom portrait height (approx 9:16 ratio) */
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      max-width: 260px;
       background: #0d0f14;
       display: grid;
       place-items: center;
@@ -113,6 +114,9 @@
     @media (max-width: 720px) {
       .hero { grid-template-columns: 1fr; text-align: center; }
       .avatar { margin: 0 auto; }
+      .thumb {
+        max-width: 100%;
+      }
     }
   </style>
 </head>
@@ -139,8 +143,8 @@
           <img src="images/me.jpeg" alt="Portrait of M Touseef" loading="lazy" />
         </div>
         <div>
-          <h1>M Touseef — Game Developer (Unity / C#)</h1>
-          <p class="sub">Pakistan • Mobile Games • Prototyping • Ads & Playables • DOTween • URP • C++/C#</p>
+          <h1>M Touseef — Game Developer (Unity / C# / Cocos Creator / TypeScript)</h1>
+          <p class="sub">Pakistan • Mobile Games • Prototyping • Ads & Playables • Unity/C# • Cocos Creator • TypeScript • C++</p>
           <div class="cta">
             <a class="btn primary" href="#playables">View Playables</a>
             <a class="btn" href="#links">Professional Links</a>
@@ -154,14 +158,14 @@
     <section id="about">
       <div class="panel">
         <h2 style="margin:0 0 10px">About</h2>
-        <p>I build fast, fun, and scalable mobile game prototypes and marketing playables. I specialise in <strong>Unity</strong>, <strong>C#</strong>, and performance-minded content for the hyper-casual & casual markets. I’ve collaborated with top publishers and shipped titles with massive scale.</p>
+        <p>I specialise in building high-performing creatives and playable ads for mobile games. While I also make and prototype games, my primary focus is on the creative side — designing, developing, and optimising engaging playables and marketing content. Skilled in <strong>Unity</strong>, <strong>C#</strong>, <strong>Cocos Creator</strong>, and <strong>TypeScript</strong>, I’ve worked with top publishers like TapNation, Homa Games, KobStudio, and currently FumbGames, where I develop playables supporting live projects and user acquisition campaigns.</p>
         <div class="links" style="margin-top: 10px;">
           <span class="chip">Unity</span>
           <span class="chip">C#</span>
           <span class="chip">C++</span>
-          <span class="chip">DOTween</span>
-          <span class="chip">URP</span>
-          <span class="chip">UI/UX for Ads</span>
+          <span class="chip">Cocos Creator</span>
+          <span class="chip">Unity Playworks/Luna</span>
+          <span class="chip">Creatives Master Chef</span>
         </div>
       </div>
     </section>
@@ -171,6 +175,11 @@
       <div class="panel">
         <h2 style="margin:0 0 16px">Experience</h2>
         <div class="xp-grid">
+          <article class="xp">
+            <h3>Playable Developer — FumbGames</h3>
+            <div class="meta">Remote • Current</div>
+            <p>Creating and optimising high-performing playable ads and creatives using Unity and Cocos Creator. Focused on engaging marketing content, supporting UA campaigns, and delivering polished experiences for live and upcoming projects.</p>
+          </article>
           <article class="xp">
             <h3>Unity Marketing Artist — TapNation</h3>
             <div class="meta">Remote • ~3 years</div>
@@ -196,10 +205,9 @@
         <h2 style="margin:0 0 12px">Professional Links</h2>
         <div class="links">
           <!-- Replace href values with your real profiles -->
-          <a class="chip" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="chip" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
-          <a class="chip" href="https://itch.io/" target="_blank" rel="noopener">itch.io</a>
-          <a class="chip" href="mailto:you@example.com">Email</a>
+          <a class="chip" href="https://www.linkedin.com/in/muhammad-touseef-73324b1b1/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="chip" href="https://github.com/shintoseef" target="_blank" rel="noopener">GitHub</a>
+          <a class="chip" href="mailto:ahmadtoseef321@gmail.com">ahmadtoseef321@gmail.com</a>
         </div>
       </div>
     </section>
@@ -219,7 +227,7 @@
     <section id="contact">
       <div class="panel">
         <h2 style="margin:0 0 12px">Contact</h2>
-        <p>Email: <a href="mailto:you@example.com">you@example.com</a> • Available for remote roles and freelance.</p>
+        <p>Email: <a href="mailto:ahmadtoseef321@gmail.com">ahmadtoseef321@gmail.com</a> • Available for remote roles and freelance.</p>
       </div>
     </section>
   </main>
