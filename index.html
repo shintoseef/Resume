@@ -6,6 +6,24 @@
   <title>M Touseef – Game Developer Portfolio</title>
   <meta name="description" content="Portfolio of M Touseef – Game Developer (Unity/C#). Work history, professional links, and playable demos." />
   <style>
+    /* Testimonials */
+    .testimonial-container {
+      position: relative;
+      overflow: hidden;
+      height: 140px;
+    }
+    .testimonial {
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      text-align: center;
+      padding: 10px;
+    }
+    .testimonial.active {
+      opacity: 1;
+      position: relative;
+    }
     :root {
       --bg: #0e0f12;
       --panel: #14161b;
@@ -312,6 +330,27 @@
       </div>
     </section>
 
+    <!-- TESTIMONIALS -->
+    <section id="testimonials">
+      <div class="panel">
+        <h2 style="margin:0 0 16px">Testimonials</h2>
+        <div class="testimonial-container">
+          <div class="testimonial active">
+            <p>"Working with Touseef was an amazing experience — fast, creative, and reliable!"</p>
+            <strong>— TapNation Team</strong>
+          </div>
+          <div class="testimonial">
+            <p>"Delivered high-performing playables that boosted our KPIs significantly."</p>
+            <strong>— Homa Games</strong>
+          </div>
+          <div class="testimonial">
+            <p>"Always professional and proactive in solving problems."</p>
+            <strong>— KobStudio</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- CONTACT -->
     <section id="contact">
       <div class="panel">
@@ -577,6 +616,15 @@
         document.getElementById('playableFrame').src = '';
       }
     });
+
+    // Auto-swipe testimonials
+    const testimonials = document.querySelectorAll('.testimonial');
+    let tIndex = 0;
+    setInterval(() => {
+      testimonials[tIndex].classList.remove('active');
+      tIndex = (tIndex + 1) % testimonials.length;
+      testimonials[tIndex].classList.add('active');
+    }, 4000); // 4s interval
 
 </script>
 
