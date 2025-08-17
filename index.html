@@ -22,7 +22,8 @@
     html, body { height: 100%; }
     body {
       margin: 0;
-      background: #0e0f12;
+      /* Removed animated gradient to reveal liquid wave background */
+      background: var(--bg);
       color: var(--text);
       font: 16px/1.65 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
     }
@@ -164,8 +165,27 @@
   </style>
 </head>
 <body>
-  <!-- tsParticles interactive background -->
-  <div id="tsparticles" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;"></div>
+  <!-- Infinite Scrolling Background -->
+  <div class="scroll-bg"></div>
+
+  <style>
+  .scroll-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: url('images/bg.jpg') repeat; /* tile the image instead of stretching */
+    background-size: auto; /* keep original size for high resolution */
+    animation: scrollBg 30s linear infinite;
+  }
+
+@keyframes scrollBg {
+  0% { background-position: 0 0; }
+  100% { background-position: 1000px 1000px; }
+}
+  </style>
   <header>
     <div class="container nav">
       <div style="font-weight: 800; letter-spacing: .2px;">M TOUSEEF</div>
@@ -462,36 +482,6 @@
 
 </script>
 
-</script>
 
-  <!-- tsParticles script and configuration -->
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
-  <script>
-  tsParticles.load("tsparticles", {
-    background: { color: "#0e0f12" },
-    fpsLimit: 60,
-    particles: {
-      number: { value: 100 },
-      color: { value: "#39bdf8" },
-      shape: { type: "circle" },
-      opacity: { value: 0.7 },
-      size: { value: { min: 1, max: 4 } },
-      links: { enable: true, distance: 120, color: "#39bdf8", opacity: 0.4, width: 1 },
-      move: { enable: true, speed: 2, direction: "none", random: false, straight: false, outModes: "out" }
-    },
-    interactivity: {
-      events: {
-        onHover: { enable: true, mode: "repulse" },
-        onClick: { enable: true, mode: "push" },
-        resize: true
-      },
-      modes: {
-        repulse: { distance: 100, duration: 0.4 },
-        push: { quantity: 4 }
-      }
-    },
-    detectRetina: true
-  });
-  </script>
 </body>
 </html>
