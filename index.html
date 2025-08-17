@@ -22,17 +22,9 @@
     html, body { height: 100%; }
     body {
       margin: 0;
-      background: linear-gradient(270deg, #0e0f12, #1a1f2b, #0e0f12, #0e0f12, #39bdf8);
-      background-size: 1200% 1200%;
+      background: #0e0f12;
       color: var(--text);
       font: 16px/1.65 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      animation: gradientBG 20s ease infinite;
-    }
-
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
     }
 
     a { color: var(--brand-2); text-decoration: none; }
@@ -172,6 +164,8 @@
   </style>
 </head>
 <body>
+  <!-- tsParticles interactive background -->
+  <div id="tsparticles" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;"></div>
   <header>
     <div class="container nav">
       <div style="font-weight: 800; letter-spacing: .2px;">M TOUSEEF</div>
@@ -466,8 +460,38 @@
       }
     });
 
-    // Footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</script>
+
+  <!-- tsParticles script and configuration -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
+  <script>
+  tsParticles.load("tsparticles", {
+    background: { color: "#0e0f12" },
+    fpsLimit: 60,
+    particles: {
+      number: { value: 100 },
+      color: { value: "#39bdf8" },
+      shape: { type: "circle" },
+      opacity: { value: 0.7 },
+      size: { value: { min: 1, max: 4 } },
+      links: { enable: true, distance: 120, color: "#39bdf8", opacity: 0.4, width: 1 },
+      move: { enable: true, speed: 2, direction: "none", random: false, straight: false, outModes: "out" }
+    },
+    interactivity: {
+      events: {
+        onHover: { enable: true, mode: "repulse" },
+        onClick: { enable: true, mode: "push" },
+        resize: true
+      },
+      modes: {
+        repulse: { distance: 100, duration: 0.4 },
+        push: { quantity: 4 }
+      }
+    },
+    detectRetina: true
+  });
   </script>
 </body>
 </html>
