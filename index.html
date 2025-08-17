@@ -195,6 +195,8 @@
         <a href="#links">Links</a>
         <a href="#playables">Playables</a>
         <a href="#contact">Contact</a>
+      
+      
       </nav>
     </div>
   </header>
@@ -212,6 +214,7 @@
           <p class="sub">Pakistan • Mobile Games • Prototyping • Ads & Playables • Unity/C# • Cocos Creator • TypeScript • C++</p>
           <div class="cta">
             <a class="btn primary" href="#playables">View Playables</a>
+            <a class="btn primary" href="#creatives">View Creatives</a>
             <a class="btn" href="#links">Professional Links</a>
             <a class="btn" href="#contact">Contact</a>
           </div>
@@ -280,10 +283,6 @@
     <!-- PLAYABLES -->
     <section id="playables">
       <div class="panel">
-        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px;">
-          <h2 style="margin:0">Playables</h2>
-          <div style="color:var(--muted); font-size:14px;">Click a thumbnail to load. No autoplay.</div>
-        </div>
         <div class="gallery" id="gallery"></div>
         <div style="text-align:center; margin-top:16px;">
           <button id="seeMoreBtn" class="btn purple">Show All</button>
@@ -292,6 +291,22 @@
           <div class="modal-content">
             <button id="closeModal" class="close-btn" aria-label="Close playable">✕</button>
             <iframe id="playableFrame" src="" style="width:100%; height:100%; border:0; border-radius:12px; display:block;"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CREATIVES -->
+    <section id="creatives">
+      <div class="panel">
+        <div class="gallery" id="creativesGallery"></div>
+        <div style="text-align:center; margin-top:16px;">
+          <button id="seeMoreCreativesBtn" class="btn purple">Show All</button>
+        </div>
+        <div id="creativeModal" class="modal" style="display:none;">
+          <div class="modal-content">
+            <button id="closeCreativeModal" class="close-btn" aria-label="Close creative">✕</button>
+            <iframe id="creativeFrame" src="" style="width:100%; height:100%; border:0; border-radius:12px; display:block;"></iframe>
           </div>
         </div>
       </div>
@@ -313,6 +328,89 @@
   </footer>
 
   <script>
+    // ======== CONFIGURE YOUR CREATIVES HERE ========
+    // Each entry needs: title, video (video file path), note (optional)
+    const CREATIVES = [
+      { title: 'Simulation - CustomGamePlay', video: 'creatives/1.mp4', note: 'My Laundary Simulator - Ozi Games' },
+      { title: 'HCG - CustomGamePlay', video: 'creatives/2.mp4', note: 'Idle Mine Craft - TapNation' },
+{ title: 'Casual - Custom Gameplay', video: 'creatives/9.mp4', note: 'Hero Making Tycoon -TapNation' },
+      
+  { title: 'HCG - CustomGamePlay', video: 'creatives/4.mp4', note: 'Parking Jam - TapNation' },  
+      { title: 'HCG - knor Rebranding', video: 'creatives/5.mp4', note: 'Pocket Monster Rush - TapNation' },
+    { title: 'HCG - Custom Gameplay', video: 'creatives/3.mp4', note: 'Giant Rush - TapNation' },
+      { title: 'HCG - CustomGameplay', video: 'creatives/6.mp4', note: 'Dinosaur Evolution 3d - Ozi Games' },
+    { title: 'HCG - CustomGamePlay', video: 'creatives/7.mp4', note: 'Guess Thier Answer - TapNation' },
+  ,
+{ title: 'Simulation - Custom Gameplay', video: 'creatives/8.mp4', note: 'Flying Horse3d - OziGames' },
+{ title: 'HCG - GamplayAlter', video: 'creatives/10.mp4', note: 'GiantRush - TapNation' },
+{ title: 'Casual - GamplayAlter', video: 'creatives/14.mp4', note: 'Hero Adventure - TapNation' },
+{ title: 'HCG - Custom Gameplay', video: 'creatives/12.mp4', note: 'Parking Jam 3d - TapNation' },
+{ title: 'HCG - GamplayAlter', video: 'creatives/13.mp4', note: 'Hide and Seek - Ozi Games' },
+
+{ title: 'Simulation - GamplayAlter', video: 'creatives/15.mp4', note: 'Gym Simulator 3d - OZi Games' },
+{ title: 'HCG - Custom Gameplay', video: 'creatives/16.mp4', note: 'Spider Evolution - Ozi Games' },
+{ title: 'HCG - Custom Gameplay', video: 'creatives/17.mp4', note: 'Parking Inc - Voodoo test' },
+
+{ title: 'HCG - Custom Gameplay', video: 'creatives/18.mp4', note: 'Parking Inc - Voodoo test' },
+{ title: 'HCG - Custom Gameplay', video: 'creatives/19.mp4', note: 'Pocket Monster Rush - TapNation' },
+{ title: 'HCG - Custom Gameplay', video: 'creatives/20.mp4', note: 'Mine Craft idle - TapNation' },
+
+
+{ title: 'HCG - Custom Gameplay', video: 'creatives/21.mp4', note: 'Parking Jam 3d - TapNation' },
+{ title: 'HCG - Custom Gameplay', video: 'creatives/22.mp4', note: 'Pocket Monster Rush - TapNation' },
+{ title: 'HCG - Custom Gameplay', video: 'creatives/23.mp4', note: 'Pocket Monster Rush - TapNation' },
+
+{ title: 'HCG - Custom Gameplay', video: 'creatives/24.mp4', note: 'Shoe Paint 3d - TapNation' },
+{ title: 'HCG - Custom Gameplay', video: 'creatives/25.mp4', note: 'Tall Man Run - TapNation' },
+{ title: 'HCG - Custom Gameplay', video: 'creatives/26.mp4', note: 'Shoe Paint 3d - TapNation' },
+
+{ title: 'HCG - Custom Gameplay', video: 'creatives/28.mp4', note: 'Mine Craft - TapNation' },
+{ title: 'HCG - Custom Gameplay', video: 'creatives/29.mp4', note: 'Mine Craft - TapNation' },
+{ title: 'HCG - Custom Gameplay', video: 'creatives/30.mp4', note: 'Pocket Monster Rush- TapNation' },
+
+{ title: 'HCG - Custom Gameplay', video: 'creatives/31.mp4', note: 'Pocket Monster Rush - TapNation' },
+{ title: 'HCG - Custom Gameplay', video: 'creatives/32.mp4', note: 'Hero Adventure- TapNation' },
+{ title: 'HCG - Custom Gameplay', video: 'creatives/33.mp4', note: 'Wizard Universe - TapNation' },
+
+{ title: 'HCG - Custom Gameplay', video: 'creatives/34.mp4', note: 'CornHole - TapNation' },
+{ title: 'HCG - Custom Gameplay', video: 'creatives/35.mp4', note: 'Giant Rush - TapNation' },
+{ title: 'Simulation - Custom Gameplay', video: 'creatives/36.mp4', note: 'Army Train Simulator - Ozi Games' },
+
+{ title: 'Custom Gameplay', video: 'creatives/37.mp4', note: 'No Wifi Games - Ozi Games' },
+{ title: 'Guess Thier Answer - Custom Gameplay', video: 'creatives/38.mp4', note: 'Guess thier Answer TapNation' },
+
+
+
+
+];
+
+    const cg = document.getElementById('creativesGallery');
+    cg.innerHTML = CREATIVES.map((c, i) => `
+      <article class="card" data-index="${i}" style="${i >= 3 ? 'display:none;' : ''}">
+        <div class="thumb">
+          <video src="${c.video}" controls style="width:100%; height:100%; border-radius:12px;" preload="metadata"></video>
+       
+        </div>
+        <h4>${c.title}</h4>
+        <p>${c.note || ''}</p>
+      </article>
+    `).join('');
+
+    const seeMoreCreativesBtn = document.getElementById('seeMoreCreativesBtn');
+    seeMoreCreativesBtn.addEventListener('click', () => {
+      document.querySelectorAll('#creativesGallery .card').forEach(c => c.style.display = '');
+      seeMoreCreativesBtn.style.display = 'none';
+      const collapseBtn = document.createElement('button');
+      collapseBtn.textContent = 'Collapse';
+      collapseBtn.className = 'btn purple';
+      collapseBtn.style.marginTop = '16px';
+      collapseBtn.addEventListener('click', () => {
+        document.querySelectorAll('#creativesGallery .card').forEach((c, i) => { if(i >= 3) c.style.display='none'; });
+        collapseBtn.remove();
+        seeMoreCreativesBtn.style.display = '';
+      });
+      seeMoreCreativesBtn.parentElement.appendChild(collapseBtn);
+    });
     // ======== CONFIGURE YOUR PLAYABLES HERE ========
     // Each entry needs: title, thumb (image path), src (iframe URL), note (optional)
     const PLAYABLES = [
@@ -423,7 +521,7 @@
       <article class="card" data-index="${i}" style="${i >= 3 ? 'display:none;' : ''}">
         <div class="thumb">
           <img src="${p.thumb}" alt="Thumbnail for ${p.title}" loading="lazy"/>
-          <span class="badge">${p.note || ''}</span>
+          
           <div class="play"><button type="button" aria-label="Play ${p.title}">Play</button></div>
         </div>
         <h4>${p.title}</h4>
