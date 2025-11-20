@@ -5,12 +5,148 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>M Touseef – Game Developer Portfolio</title>
   <meta name="description" content="Portfolio of M Touseef – Game Developer (Unity/C#). Work history, professional links, and playable demos." />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
+    /* VARIABLES */
+    :root {
+      --bg: #0b0c10; /* Darker space background */
+      --panel: #14161b;
+      --muted: #9aa3af;
+      --text: #f5f7fb;
+      --brand: #7c5cff;
+      --brand-2: #39bdf8;
+      --card: #171a21;
+      --ring: rgba(124, 92, 255, .6); /* Stronger glow */
+      --radius: 18px;
+    }
+
+    /* BASE STYLES */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: var(--brand-2); text-decoration: none; }
+    a:hover { text-decoration: underline; color: var(--brand-2); }
+
+    .container { width: min(1200px, 92vw); margin: 0 auto; }
+    h1, h2, h3, h4 { margin: 0; font-weight: 700; }
+    
+    /* BACKGROUND EFFECT (Slightly improved) */
+    .scroll-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: url('images/bg.jpg') repeat;
+      background-size: 500px 500px; /* Make the pattern less aggressive */
+      opacity: 0.2; /* Subtle background */
+      animation: scrollBg 150s linear infinite;
+    }
+    @keyframes scrollBg {
+      0% { background-position: 0 0; }
+      100% { background-position: 1000px 1000px; }
+    }
+
+    /* HEADER / NAV */
+    header {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(1.8) blur(12px);
+      background: linear-gradient(to bottom, rgba(20,22,27,.95), rgba(20,22,27,.7));
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      padding: 5px 0;
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; }
+    .nav-title { font-weight: 900; letter-spacing: 1px; font-size: 1.25rem; }
+    .nav a { margin-left: 10px; padding: 6px 10px; border-radius: 8px; transition: background .2s ease; font-weight: 600; font-size: 0.95rem; }
+    .nav a:hover { background: rgba(124, 92, 255, .15); text-decoration: none; }
+
+    /* HERO */
+    .hero-section { padding: 80px 0 40px; }
+    .hero { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 30px; padding: 40px; background: var(--panel); border: 2px solid rgba(255,255,255,.1); border-radius: var(--radius); box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+    .avatar { width: 180px; height: 180px; border-radius: 50%; overflow: hidden; border: 4px solid var(--brand); box-shadow: 0 0 25px var(--ring); }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      margin: 0 0 10px;
+      font-weight: 900;
+      text-shadow: 0 0 10px rgba(124, 92, 255, 0.4); /* Neon Glow */
+    }
+    .sub { color: var(--muted); margin: 0 0 24px; font-size: 1.1rem; }
+    .cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.1);
+      color: var(--text); text-decoration: none; font-weight: 600; box-shadow: 0 6px 20px rgba(0,0,0,.35);
+      background: linear-gradient(180deg, #1b1f2a, #151823);
+      transition: all .2s ease;
+    }
+    .btn:hover { background: #21252f; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,.45); }
+    .btn.primary {
+      background: linear-gradient(180deg, #8d73ff, #6d4aff);
+      border-color: rgba(124,92,255,.8);
+      box-shadow: 0 0 15px var(--ring), 0 10px 30px var(--ring);
+    }
+    .btn.primary:hover { background: linear-gradient(180deg, #9b81ff, #7a58ff); box-shadow: 0 0 20px var(--ring), 0 12px 35px var(--ring); }
+
+    /* Cards / sections */
+    section { padding: 40px 0; }
+    .panel { background: var(--panel); border: 2px solid rgba(255,255,255,.1); border-radius: var(--radius); box-shadow: 0 15px 45px rgba(0,0,0,.3); padding: 30px; }
+
+    .links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .chip { background: #1a1f29; border: 1px solid var(--brand); padding: 8px 12px; border-radius: 999px; display:inline-flex; align-items:center; gap:8px; font-weight: 500; }
+    .chip:hover { background: var(--brand); color: white; text-decoration: none; }
+
+    /* Experience */
+    .xp-grid { display: grid; gap: 20px; }
+    .xp { background: var(--card); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 20px; transition: transform .2s ease, box-shadow .2s ease; }
+    .xp:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,.3); }
+    .xp h3 { margin: 0 0 4px; font-size: 20px; font-weight: 700; color: var(--brand-2); }
+    .xp .meta { color: var(--muted); font-size: 14px; margin-bottom: 12px; font-style: italic; }
+
+    /* Playables gallery */
+    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .card { background: var(--card); border: 1px solid rgba(255,255,255,.1); border-radius: 18px; overflow: hidden; position: relative; transition: transform .2s ease, box-shadow .2s ease; cursor: pointer; }
+    .card:hover { transform: scale(1.02); box-shadow: 0 0 25px var(--ring); }
+    .thumb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      background: #0d0f14;
+      display: grid;
+      place-items: center;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .thumb img, .thumb video { width: 100%; height: 100%; object-fit: cover; display: block; border-bottom: 1px solid rgba(255,255,255,.05); }
+    .badge { position: absolute; top: 12px; left: 12px; font-size: 12px; background: rgba(0,0,0,.65); padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.15); font-weight: 600; }
+    .play {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,.65);
+      opacity: 0; transition: opacity .3s ease;
+    }
+    .card:hover .play { opacity: 1; }
+    .play button {
+      appearance: none; border: none; padding: 14px 24px; border-radius: 14px; font-weight: 700; cursor: pointer;
+      background: linear-gradient(180deg, #7c5cff, #5d39ff); color: white; box-shadow: 0 0 15px var(--ring), 0 10px 30px var(--ring);
+      transition: transform .2s ease;
+    }
+    .play button:hover { transform: scale(1.05); }
+    .card h4 { margin: 15px 15px 5px; font-size: 18px; font-weight: 700; }
+    .card p { margin: 0 15px 20px; color: var(--muted); font-size: 14px; }
+
     /* Testimonials */
     .testimonial-container {
       position: relative;
       overflow: hidden;
-      height: 140px;
+      height: 120px;
     }
     .testimonial {
       opacity: 0;
@@ -24,138 +160,16 @@
       opacity: 1;
       position: relative;
     }
-    :root {
-      --bg: #0e0f12;
-      --panel: #14161b;
-      --muted: #9aa3af;
-      --text: #f5f7fb;
-      --brand: #7c5cff;
-      --brand-2: #39bdf8;
-      --card: #171a21;
-      --ring: rgba(124, 92, 255, .35);
-      --radius: 18px;
-    }
+    .testimonial p { font-size: 1.1rem; font-style: italic; margin-bottom: 8px;}
+    .testimonial strong { color: var(--brand-2); font-weight: 700; }
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      /* Removed animated gradient to reveal liquid wave background */
-      background: var(--bg);
-      color: var(--text);
-      font: 16px/1.65 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    a { color: var(--brand-2); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    .container { width: min(1100px, 92vw); margin: 0 auto; }
-
-    header {
-      position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(1.2) blur(10px);
-      background: linear-gradient(to bottom, rgba(20,22,27,.9), rgba(20,22,27,.6));
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .nav { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; }
-    .nav a { margin: 0 10px; padding: 8px 12px; border-radius: 10px; }
-    .nav a:hover { background: rgba(255,255,255,.06); text-decoration: none; }
-
-    /* Hero */
-    .hero { display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: center; padding: 42px 0 22px; }
-    .avatar { width: 180px; height: 180px; border-radius: 50%; overflow: hidden; border: 3px solid rgba(255,255,255,.08); box-shadow: 0 10px 30px rgba(0,0,0,.4); }
-    .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .hero h1 { font-size: clamp(28px, 4vw, 38px); margin: 0 0 6px; }
-    .sub { color: var(--muted); margin: 0 0 16px; }
-    .cta { display: flex; gap: 10px; flex-wrap: wrap; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.08);
-      color: var(--text); text-decoration: none; font-weight: 600; box-shadow: 0 6px 20px rgba(0,0,0,.35);
-      background: linear-gradient(180deg, #1b1f2a, #151823);
-    }
-    .btn.purple {
-      background: linear-gradient(180deg, #7c5cff, #5d39ff);
-      border-color: rgba(124,92,255,.6);
-      box-shadow: 0 10px 30px var(--ring);
-    }
-    .btn:hover { background: #1a1f2b; }
-    .btn.primary { background: linear-gradient(180deg, #7c5cff, #5d39ff); border-color: rgba(124,92,255,.6); box-shadow: 0 10px 30px var(--ring); }
-
-    /* Cards / sections */
-    section { padding: 26px 0; }
-    .panel { background: var(--panel); border: 1px solid rgba(255,255,255,.06); border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0,0,0,.25); padding: 20px; }
-    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
-
-    .links { display: flex; gap: 10px; flex-wrap: wrap; }
-    .chip { background: #1a1f29; border: 1px solid rgba(255,255,255,.08); padding: 8px 12px; border-radius: 999px; display:inline-flex; align-items:center; gap:8px; }
-
-    /* Experience */
-    .xp-grid { display: grid; gap: 14px; }
-    .xp { background: var(--card); border: 1px solid rgba(255,255,255,.06); border-radius: 14px; padding: 16px; }
-    .xp h3 { margin: 0 0 6px; font-size: 18px; }
-    .xp .meta { color: var(--muted); font-size: 14px; margin-bottom: 10px; }
-
-    /* Playables gallery */
-    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
-    .card { background: var(--card); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; overflow: hidden; position: relative; }
-    .thumb {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 9 / 16;
-      max-width: 200px;
-      background: #0d0f14;
-      display: grid;
-      place-items: center;
-      margin: 0 auto;
-      overflow: hidden;
-      border-radius: 12px;
-    }
-    .thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
-    .badge { position: absolute; top: 8px; left: 8px; font-size: 12px; background: rgba(0,0,0,.55); padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,.08); }
-    .play {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,.55);
-      opacity: 0;
-      transition: opacity .25s ease;
-      width: 100%;
-      height: 100%;
-    }
-    .card:hover .play { opacity: 1; }
-    .play button {
-      appearance: none; border: none; padding: 12px 16px; border-radius: 12px; font-weight: 700; cursor: pointer;
-      background: linear-gradient(180deg, #7c5cff, #5d39ff); color: white; box-shadow: 0 10px 30px var(--ring);
-    }
-    .card h4 { margin: 10px 12px 6px; font-size: 16px; }
-    .card p { margin: 0 12px 16px; color: var(--muted); font-size: 14px; }
-
-    footer { color: var(--muted); padding: 40px 0; text-align: center; }
-
-    @media (max-width: 720px) {
-      .hero { grid-template-columns: 1fr; text-align: center; }
-      .avatar { margin: 0 auto; }
-      .thumb {
-        max-width: 100%;
-      }
-    }
+    footer { color: var(--muted); padding: 40px 0; text-align: center; border-top: 1px solid rgba(255,255,255,.05); margin-top: 20px; }
 
     /* Modal styles */
     .modal {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.9);
       display: flex; align-items: center; justify-content: center;
       z-index: 1000;
       padding: 20px;
@@ -163,103 +177,100 @@
     .modal-content {
       position: relative;
       width: 100%;
-      max-width: 420px;
+      /* Smaller playable size */
+      max-width: 380px; 
       aspect-ratio: 9/16;
       background: #000;
-      border-radius: 12px;
+      border-radius: var(--radius);
       overflow: hidden;
+      box-shadow: 0 0 30px rgba(124, 92, 255, 0.5);
     }
     .close-btn {
       position: absolute;
-      top: 8px; right: 8px;
-      background: rgba(0,0,0,0.6);
+      top: 10px; right: 10px;
+      background: rgba(0,0,0,0.8);
       border: none;
       color: white;
       font-size: 20px;
       border-radius: 50%;
-      width: 32px; height: 32px;
+      width: 36px; height: 36px;
       cursor: pointer;
+      z-index: 10;
+      border: 1px solid rgba(255,255,255,.2);
+    }
+
+    /* Helper for Centered Buttons */
+    .centered-btn-wrapper {
+        text-align: center;
+        margin-top: 24px;
+    }
+
+    @media (max-width: 720px) {
+      .hero-section { padding: 40px 0 20px; }
+      .hero { flex-direction: column; text-align: center; padding: 30px 20px; }
+      .avatar { margin: 0 auto; width: 150px; height: 150px; }
+      .nav nav { display: none; } /* Mobile-first: Hide nav links for simplicity */
+      .nav { justify-content: center; }
+      .cta { flex-direction: column; }
     }
   </style>
 </head>
 <body>
-  <!-- Infinite Scrolling Background -->
   <div class="scroll-bg"></div>
 
-  <style>
-  .scroll-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background: url('images/bg.jpg') repeat; /* tile the image instead of stretching */
-    background-size: auto; /* keep original size for high resolution */
-    animation: scrollBg 100s linear infinite;
-  }
-
-@keyframes scrollBg {
-  0% { background-position: 0 0; }
-  100% { background-position: 1000px 1000px; }
-}
-  </style>
   <header>
     <div class="container nav">
-      <div style="font-weight: 800; letter-spacing: .2px;">M TOUSEEF</div>
+      <div class="nav-title">M TOUSEEF <span style="color:var(--brand); font-weight: 600;">// GAME DEV</span></div>
       <nav>
         <a href="#about">About</a>
         <a href="#experience">Experience</a>
-        <a href="#links">Links</a>
-        <a href="#playables">Playables</a>
+        <a href="#playables">Work</a>
         <a href="#contact">Contact</a>
-      
-      
       </nav>
     </div>
   </header>
 
   <main class="container">
-    <!-- HERO -->
-    <section aria-label="Intro">
-      <div class="hero panel">
+    <section aria-label="Intro" class="hero-section">
+      <div class="hero">
         <div class="avatar" aria-hidden="true">
-          <!-- Replace with your photo path -->
           <img src="images/me.jpeg" alt="Portrait of M Touseef" loading="lazy" />
         </div>
         <div>
-          <h1>M Touseef — Game Developer (Unity / C# / Cocos Creator / TypeScript)</h1>
-          <p class="sub">Pakistan • Mobile Games • Prototyping • Ads & Playables • Unity/C# • Cocos Creator • TypeScript • C++</p>
+          <h1>M Touseef — Playable & Game Developer</h1>
+          <p class="sub">
+            <span style="color:var(--brand);">**Unity**</span> / <span style="color:var(--brand);">**C#**</span> / <span style="color:var(--brand);">**Cocos Creator**</span> / <span style="color:var(--brand);">**TypeScript**</span> Specialist • High-Performing Creatives & Mobile Games
+          </p>
           <div class="cta">
-            <a class="btn primary" href="#playables">View Playables</a>
-            <a class="btn primary" href="#creatives">View Creatives</a>
-            <a class="btn" href="#links">Professional Links</a>
-            <a class="btn" href="#contact">Contact</a>
+            <a class="btn primary" href="#playables">🎮 View Playables</a>
+            <a class="btn primary" href="#creatives">🎬 View Video Creatives</a>
+            <a class="btn" href="https://www.linkedin.com/in/muhammad-touseef-73324b1b1/" target="_blank" rel="noopener">💼 LinkedIn Profile</a>
+            <a class="btn" href="mailto:ahmadtoseef321@gmail.com">📧 Contact Me</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT / SKILLS -->
     <section id="about">
       <div class="panel">
-        <h2 style="margin:0 0 10px">About</h2>
-        <p>I specialise in building high-performing creatives and playable ads for mobile games. While I also make and prototype games, my primary focus is on the creative side — designing, developing, and optimising engaging playables and marketing content. Skilled in <strong>Unity</strong>, <strong>C#</strong>, <strong>Cocos Creator</strong>, and <strong>TypeScript</strong>, I’ve worked with top publishers like TapNation, Homa Games, KobStudio, and currently FumbGames, where I develop playables supporting live projects and user acquisition campaigns.</p>
-        <div class="links" style="margin-top: 10px;">
+        <h2 style="margin:0 0 15px; font-size: 28px;">🚀 About Me & Core Skills</h2>
+        <p>I specialise in building high-performing creatives and playable ads for mobile games. While I also make and prototype games, my primary focus is on the creative side — designing, developing, and optimising engaging playables and marketing content. Skilled in Unity, C#, Cocos Creator, and TypeScript, I’ve worked with top publishers like TapNation, Homa Games, KobStudio, and currently FumbGames, where I develop playables supporting live projects and user acquisition campaigns.</p>
+        <div class="links" style="margin-top: 20px;">
           <span class="chip">Unity</span>
           <span class="chip">C#</span>
-          <span class="chip">C++</span>
           <span class="chip">Cocos Creator</span>
+          <span class="chip">TypeScript</span>
           <span class="chip">Unity Playworks/Luna</span>
           <span class="chip">Creatives Master Chef</span>
+          <span class="chip">Prototyping</span>
+          <span class="chip">Mobile UA</span>
         </div>
       </div>
     </section>
 
-    <!-- EXPERIENCE -->
     <section id="experience">
       <div class="panel">
-        <h2 style="margin:0 0 16px">Experience</h2>
+        <h2 style="margin:0 0 20px; font-size: 28px;">⭐ Professional Experience</h2>
         <div class="xp-grid">
           <article class="xp">
             <h3>Playable Developer — FumbGames</h3>
@@ -269,7 +280,7 @@
           <article class="xp">
             <h3>Unity Marketing Artist — TapNation</h3>
             <div class="meta">Remote • ~3 years</div>
-            <p>Produced high-performing playable ads, trailers, and interactive demos for top-grossing mobile titles. Focus on iteration speed, polish, and KPI-driven creatives.</p>
+            <p>Produced high-performing playable ads, trailers, and interactive demos for top-grossing mobile titles. Focus on iteration speed, polish, and KPI-driven creatives for massive scale user acquisition.</p>
           </article>
           <article class="xp">
             <h3>Collaborations: Homa Games, KobStudio</h3>
@@ -285,102 +296,65 @@
       </div>
     </section>
 
-    <!-- LINKS -->
-    <section id="links">
-      <div class="panel">
-        <h2 style="margin:0 0 12px">Professional Links</h2>
-        <div class="links">
-          <!-- Replace href values with your real profiles -->
-          <a class="chip" href="https://www.linkedin.com/in/muhammad-touseef-73324b1b1/" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="chip" href="https://github.com/shintoseef" target="_blank" rel="noopener">GitHub</a>
-          <a class="chip" href="mailto:ahmadtoseef321@gmail.com">ahmadtoseef321@gmail.com</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- PLAYABLES -->
     <section id="playables">
-      <h2 style="margin:0 0 16px; text-align:center; font-size:32px; font-weight:800;">Playables</h2>
+      <h2 style="margin:0 0 20px; text-align:center; font-size: 32px; font-weight: 800; color:var(--brand);">🕹️ Interactive Playables (HTML5)</h2>
       <div class="panel">
         <div class="gallery" id="gallery"></div>
-        <div style="text-align:center; margin-top:16px;">
-          <button id="seeMoreBtn" class="btn purple">Show All</button>
+        <div class="centered-btn-wrapper">
+          <button id="seeMoreBtn" class="btn primary">Show All Playables</button>
         </div>
-        <div id="playableModal" class="modal" style="display:none; align-items:center; justify-content:center;">
-          <div class="modal-content" style="width:320px; height:580px; max-width:90vw; max-height:90vh; border-radius:12px; overflow:hidden; background:#000;">
+        <div id="playableModal" class="modal" style="display:none;">
+          <div class="modal-content">
             <button id="closeModal" class="close-btn" aria-label="Close playable">✕</button>
-            <iframe id="playableFrame" src="" style="width:100%; height:100%; border:0; border-radius:12px; display:block;"></iframe>
+            <iframe id="playableFrame" src="" sandbox="allow-scripts allow-forms allow-pointer-lock allow-same-origin allow-popups" style="width:100%; height:100%; border:0; border-radius:12px; display:block;"></iframe>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CREATIVES -->
     <section id="creatives">
-      <h2 style="margin:0 0 16px; text-align:center; font-size:32px; font-weight:800;">Creatives</h2>
+      <h2 style="margin:0 0 20px; text-align:center; font-size: 32px; font-weight: 800; color:var(--brand-2);">🎥 Video Creatives & Trailers</h2>
       <div class="panel">
         <div class="gallery" id="creativesGallery"></div>
-        <div style="text-align:center; margin-top:16px;">
-          <button id="seeMoreCreativesBtn" class="btn purple">Show All</button>
-        </div>
-        <div id="creativeModal" class="modal" style="display:none;">
-          <div class="modal-content">
-            <button id="closeCreativeModal" class="close-btn" aria-label="Close creative">✕</button>
-            <iframe id="creativeFrame" src="" style="width:100%; height:100%; border:0; border-radius:12px; display:block;"></iframe>
-          </div>
+        <div class="centered-btn-wrapper">
+          <button id="seeMoreCreativesBtn" class="btn primary" style="background: linear-gradient(180deg, #39bdf8, #2a9cd8);">Show All Creatives</button>
         </div>
       </div>
     </section>
 
-    <!-- TESTIMONIALS -->
     <section id="testimonials">
       <div class="panel">
-        <h2 style="margin:0 0 16px">Testimonials</h2>
+        <h2 style="margin:0 0 20px; font-size: 28px;">💬 Testimonials</h2>
         <div class="testimonial-container">
-          <div class="testimonial active">
-            <p>"Working with Touseef was an amazing experience — fast, creative, and reliable!"</p>
-            <strong>— TapNation Team</strong>
           </div>
-          <div class="testimonial">
-            <p>"Delivered high-performing playables that boosted our KPIs significantly."</p>
-            <strong>— Homa Games</strong>
-          </div>
-          <div class="testimonial">
-            <p>"Always professional and proactive in solving problems."</p>
-            <strong>— KobStudio</strong>
-          </div>
-          <div class="testimonial">
-            <p>"Collaborating with Touseef always results in innovative playables that deliver results."</p>
-            <strong>— FumbGames</strong>
-          </div>
-          <div class="testimonial">
-            <p>"Touseef consistently delivers creatives and playables that exceed expectations."</p>
-            <strong>— Ozi Games</strong>
-          </div>
-        </div>
       </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact">
       <div class="panel">
-        <h2 style="margin:0 0 12px">Contact</h2>
-        <p>Email: <a href="mailto:ahmadtoseef321@gmail.com">ahmadtoseef321@gmail.com</a> • Available for remote roles and freelance.</p>
+        <h2 style="margin:0 0 15px; font-size: 28px;">📬 Get In Touch</h2>
+        <p>I am available for remote roles and freelance projects. Let's build something engaging!</p>
+        <div class="links" style="margin-top: 15px;">
+            <a class="chip" href="mailto:ahmadtoseef321@gmail.com" target="_blank" rel="noopener" style="background:#dc4c3b; color:white; border-color:#dc4c3b;">📧 Email: ahmadtoseef321@gmail.com</a>
+            <a class="chip" href="https://www.linkedin.com/in/muhammad-touseef-73324b1b1/" target="_blank" rel="noopener" style="background:#0a66c2; color:white; border-color:#0a66c2;">🔗 LinkedIn</a>
+            <a class="chip" href="https://github.com/shintoseef" target="_blank" rel="noopener" style="background:#171515; color:white; border-color:#171515;">🐙 GitHub</a>
+        </div>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="container">
-      © <span id="year"></span> M Touseef. Built with vanilla HTML/CSS/JS.
+      © <span id="year"></span> M Touseef. Built with a passion for games.
     </div>
   </footer>
 
   <script>
-  // --- Gallery and Modal Logic (Refactored for clarity & maintainability) ---
-  // Data for Creatives Gallery (Videos)
+  // --- Data Definitions (Kept the same) ---
   const creativesData = [
-    { title: 'Simulation - CustomGamePlay', thumb: 'video-thumbnails/1.png', video: 'creatives/1.mp4', note: 'My Laundary Simulator - Ozi Games' },
+    { title: 'Idle - CustomGamePlay', thumb: 'video-thumbnails/38.png', video: 'creatives/39.mp4', note: 'IdleMine-FumbGames' },
+   
+  { title: 'Simulation - CustomGamePlay', thumb: 'video-thumbnails/1.png', video: 'creatives/1.mp4', note: 'My Laundary Simulator - Ozi Games' },
     { title: 'HCG - CustomGamePlay', thumb: 'video-thumbnails/2.png', video: 'creatives/2.mp4', note: 'Idle Mine Craft - TapNation' },
     { title: 'Casual - Custom Gameplay', thumb: 'video-thumbnails/3.png', video: 'creatives/9.mp4', note: 'Hero Making Tycoon -TapNation' },
     { title: 'HCG - CustomGamePlay', thumb: 'video-thumbnails/4.png', video: 'creatives/4.mp4', note: 'Parking Jam - TapNation' },
@@ -418,10 +392,13 @@
     { title: 'Guess Thier Answer - Custom Gameplay', thumb: 'video-thumbnails/36.png', video: 'creatives/38.mp4', note: 'Guess thier Answer TapNation' }
   ];
 
-  // Data for Playables Gallery (HTML playables)
   const playablesData = [
+  
+    { title: "Block Blast", thumb: "images/19.png", src: "playables/BlockBlast/index2.html", note: "Bitcoin BlockBlast - Fumb Games" },
+
+  {title: "Hallaween Adaptation", thumb: "images/18.png", src: "playables/IdleMine/index.html", note: "Blocks of Bitcoin - FumbGames" },    
   {title: "Ball_Challenge", thumb: "images/17.png", src: "playables/BallBounce/index.html", note: "Ball Bounce And Merge - Moone" },  
-  {title: "Angry Mining Concept", thumb: "images/16.png", src: "playables/kitchen/index.html", note: "idle Mine - Fumb Games" },
+    {title: "Angry Mining Concept", thumb: "images/16.png", src: "playables/kitchen/index.html", note: "idle Mine - Fumb Games" },
     { title: "Crystal Craven", thumb: "images/4.png", src: "playables/CrystalCraven/index.html", note: "idle Mine - Fumb Games" },
     { title: "Piggy Tetris", thumb: "images/1.png", src: "playables/Piggy/index.html", note: " Idle Bitcoin Mine - FumbGames " },
     { title: "Hero Making Tycoon", thumb: "images/10.png", src: "playables/HMT/index.html", note: "Hero Making Tycoon -TapNation" },
@@ -438,7 +415,15 @@
     { title: "Cat Hide and Seek", thumb: "images/14.png", src: "playables/Cat/index.html", note: "Cat Hide and Seek -OZI Games" }
   ];
 
-  // Utility to create card HTML for playables
+  const testimonialsData = [
+    { text: "Working with Touseef was an amazing experience — fast, creative, and reliable!", author: "TapNation Team" },
+    { text: "Delivered high-performing playables that boosted our KPIs significantly.", author: "Homa Games" },
+    { text: "Always professional and proactive in solving problems.", author: "KobStudio" },
+    { text: "Collaborating with Touseef always results in innovative playables that deliver results.", author: "FumbGames" },
+    { text: "Touseef consistently delivers creatives and playables that exceed expectations.", author: "Ozi Games" }
+  ];
+
+  // --- Utility Functions ---
   function createPlayableCard(item, index, hidden = false) {
     return `
       <article class="card" data-index="${index}" style="${hidden ? 'display:none;' : ''}">
@@ -448,116 +433,141 @@
             <button type="button" aria-label="Play ${item.title}">Play</button>
           </div>
         </div>
+        <div class="badge">Playable</div>
         <h4>${item.title}</h4>
         <p>${item.note || ''}</p>
       </article>
     `;
   }
 
-  // Utility to create card HTML for creatives (video)
   function createCreativeCard(item, index, hidden = false) {
     return `
       <article class="card" data-index="${index}" style="${hidden ? 'display:none;' : ''}">
         <div class="thumb creative-thumb" data-video="${item.video}">
-          <video poster="${item.thumb}" preload="none" style="width:100%; height:100%; border-radius:12px; display:block;"></video>
+          <img src="${item.thumb}" alt="Thumbnail for ${item.title}" loading="lazy"/>
           <div class="play">
-            <button type="button" aria-label="Play ${item.title}">Play</button>
+            <button type="button" aria-label="Play ${item.title}">Watch</button>
           </div>
         </div>
+        <div class="badge" style="background: rgba(57, 189, 248, .6); border-color: rgba(57, 189, 248, .3);">Creative</div>
         <h4>${item.title}</h4>
         <p>${item.note || ''}</p>
       </article>
     `;
   }
 
-  // Render Playables Gallery
-  const galleryEl = document.getElementById('gallery');
-  const seeMoreBtn = document.getElementById('seeMoreBtn');
-  function renderPlayables(showAll = false) {
-    galleryEl.innerHTML = playablesData.map((item, idx) =>
-      createPlayableCard(item, idx, !showAll && idx >= 3)
-    ).join('');
-  }
-  renderPlayables();
-  seeMoreBtn.addEventListener('click', () => {
-    renderPlayables(true);
-    seeMoreBtn.style.display = 'none';
-    // Add collapse button
-    const collapseBtn = document.createElement('button');
-    collapseBtn.textContent = 'Collapse';
-    collapseBtn.className = 'btn purple';
-    collapseBtn.style.marginTop = '16px';
-    collapseBtn.onclick = () => {
-      renderPlayables();
-      collapseBtn.remove();
-      seeMoreBtn.style.display = '';
-    };
-    seeMoreBtn.parentElement.appendChild(collapseBtn);
-  });
+  // --- Gallery and Modal Logic ---
+  const INITIAL_COUNT = 6; // Display 4 items initially
 
-  // Playables Modal logic
-  galleryEl.addEventListener('click', function (e) {
-    const btn = e.target.closest('button');
-    if (!btn) return;
-    const card = e.target.closest('.card');
-    if (!card) return;
-    const idx = Number(card.dataset.index);
-    const item = playablesData[idx];
-    if (!item) return;
-    document.getElementById('playableFrame').src = item.src;
-    document.getElementById('playableModal').style.display = 'flex';
-  });
-  document.getElementById('closeModal').onclick = function () {
-    document.getElementById('playableModal').style.display = 'none';
-    document.getElementById('playableFrame').src = '';
-  };
-  document.getElementById('playableModal').addEventListener('click', function (e) {
-    if (e.target === document.getElementById('playableModal')) {
-      document.getElementById('playableModal').style.display = 'none';
-      document.getElementById('playableFrame').src = '';
+  function setupGallery(data, galleryEl, createCardFn, seeMoreBtn, modalEl, modalFrameEl, isCreative = false) {
+    const render = (showAll = false) => {
+      galleryEl.innerHTML = data.map((item, idx) =>
+        createCardFn(item, idx, !showAll && idx >= INITIAL_COUNT)
+      ).join('');
+
+      // Check if button is needed
+      const btnWrapper = seeMoreBtn.closest('.centered-btn-wrapper');
+      if (data.length > INITIAL_COUNT) {
+        btnWrapper.style.display = showAll ? 'none' : 'block';
+      } else {
+        btnWrapper.style.display = 'none';
+      }
+
+      // Add collapse button if showing all
+      const existingCollapse = btnWrapper.querySelector('.collapse-btn');
+      if (existingCollapse) existingCollapse.remove();
+
+      if (showAll && data.length > INITIAL_COUNT) {
+        const collapseBtn = document.createElement('button');
+        collapseBtn.textContent = 'Collapse';
+        collapseBtn.className = 'btn primary collapse-btn';
+        collapseBtn.style.marginTop = '16px';
+        collapseBtn.onclick = () => {
+          render(false);
+          btnWrapper.style.display = 'block';
+        };
+        btnWrapper.appendChild(collapseBtn);
+      }
+    };
+
+    render(false);
+
+    seeMoreBtn.addEventListener('click', () => render(true));
+
+    galleryEl.addEventListener('click', function (e) {
+      const card = e.target.closest('.card');
+      if (!card) return;
+      
+      const idx = Number(card.dataset.index);
+      const item = data[idx];
+      if (!item) return;
+
+      if (isCreative) {
+        // Handle Video Creative play in place
+        const thumb = e.target.closest('.creative-thumb');
+        if (!thumb) return;
+        
+        // Check if video is already playing to avoid re-embed
+        if (thumb.querySelector('video')) return;
+
+        thumb.innerHTML = `<video src="${item.video}" controls autoplay style="width:100%; height:100%; border-radius:12px; display:block;"></video>`;
+      } else {
+        // Handle Playable Modal
+        if (!modalEl || !modalFrameEl) return;
+        modalFrameEl.src = item.src;
+        modalEl.style.display = 'flex';
+      }
+    });
+
+    if (modalEl) {
+      const closeModalBtn = modalEl.querySelector('.close-btn');
+      const closeHandler = function () {
+        modalEl.style.display = 'none';
+        modalFrameEl.src = ''; // Stop playable ad logic
+      };
+      
+      closeModalBtn.onclick = closeHandler;
+      modalEl.addEventListener('click', function (e) {
+        if (e.target === modalEl) closeHandler();
+      });
     }
-  });
-
-  // Render Creatives Gallery
-  const creativesGalleryEl = document.getElementById('creativesGallery');
-  const seeMoreCreativesBtn = document.getElementById('seeMoreCreativesBtn');
-  function renderCreatives(showAll = false) {
-    creativesGalleryEl.innerHTML = creativesData.map((item, idx) =>
-      createCreativeCard(item, idx, !showAll && idx >= 3)
-    ).join('');
   }
-  renderCreatives();
-  seeMoreCreativesBtn.addEventListener('click', () => {
-    renderCreatives(true);
-    seeMoreCreativesBtn.style.display = 'none';
-    // Add collapse button
-    const collapseBtn = document.createElement('button');
-    collapseBtn.textContent = 'Collapse';
-    collapseBtn.className = 'btn purple';
-    collapseBtn.style.marginTop = '16px';
-    collapseBtn.onclick = () => {
-      renderCreatives();
-      collapseBtn.remove();
-      seeMoreCreativesBtn.style.display = '';
-    };
-    seeMoreCreativesBtn.parentElement.appendChild(collapseBtn);
-  });
-  // Video play-in-place on card (for creatives)
-  creativesGalleryEl.addEventListener('click', function (e) {
-    const btn = e.target.closest('button');
-    if (!btn) return;
-    const thumb = e.target.closest('.creative-thumb');
-    if (!thumb) return;
-    const videoSrc = thumb.dataset.video;
-    if (!videoSrc) return;
-    // Replace thumb with playable video
-    thumb.innerHTML = `<video src="${videoSrc}" controls autoplay style="width:100%; height:100%; border-radius:12px; display:block;"></video>`;
-  });
+
+  // Set up Playables
+  setupGallery(
+    playablesData, 
+    document.getElementById('gallery'), 
+    createPlayableCard, 
+    document.getElementById('seeMoreBtn'), 
+    document.getElementById('playableModal'), 
+    document.getElementById('playableFrame')
+  );
+
+  // Set up Creatives
+  setupGallery(
+    creativesData, 
+    document.getElementById('creativesGallery'), 
+    createCreativeCard, 
+    document.getElementById('seeMoreCreativesBtn'), 
+    null, // No modal for creatives (they play in place)
+    null,
+    true
+  );
 
   // --- Testimonials Rotator ---
   (function () {
-    const testimonials = document.querySelectorAll('.testimonial');
+    const container = document.querySelector('.testimonial-container');
     let idx = 0;
+
+    testimonialsData.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = `testimonial${index === 0 ? ' active' : ''}`;
+        div.innerHTML = `<p>"${item.text}"</p><strong>— ${item.author}</strong>`;
+        container.appendChild(div);
+    });
+
+    const testimonials = document.querySelectorAll('.testimonial');
+
     setInterval(() => {
       testimonials[idx].classList.remove('active');
       idx = (idx + 1) % testimonials.length;
@@ -565,29 +575,8 @@
     }, 4000);
   })();
 
-  // --- Disable right-click and some shortcuts ---
-  document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
-  document.addEventListener('keydown', function (e) {
-    if (e.ctrlKey && ("uUsS".includes(e.key))) e.preventDefault();
-  });
-
-  // --- DevTools detection and redirect if opened ---
-  (function () {
-    var opened = false;
-    setInterval(function () {
-      var w = window.outerWidth - window.innerWidth > 160;
-      var h = window.outerHeight - window.innerHeight > 160;
-      if (w || h) {
-        if (!opened) {
-          opened = true;
-          document.body.innerHTML = "";
-          window.location.replace("https://example.com"); // redirect only on devtools open
-        }
-      }
-    }, 500);
-  })();
+  // --- Set current year in footer ---
+  document.getElementById('year').textContent = new Date().getFullYear();
   </script>
-
-
 </body>
 </html>
