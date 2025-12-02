@@ -619,6 +619,23 @@
 
   // --- Set current year in footer ---
   document.getElementById('year').textContent = new Date().getFullYear();
+  fetch("https://api.web3forms.com/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      access_key: "83648741-8418-4dcc-9613-929e07b90a66",
+      subject: "New Resume Visitor",
+      message: "Someone visited your resume page!",
+      userAgent: navigator.userAgent,
+      referrer: document.referrer,
+      screen: { width: screen.width, height: screen.height },
+      time: new Date().toLocaleString()
+    })
+  })
+  .then(response => response.json())
+  .then(data => console.log("Visitor info sent:", data))
+  .catch(err => console.error("Error sending visitor info:", err));
+  
   </script>
 </body>
 </html>
