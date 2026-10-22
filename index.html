@@ -213,6 +213,30 @@
       .nav { justify-content: center; }
       .cta { flex-direction: column; }
     }
+
+    /* Lightweight arcade refresh */
+    body {
+      background:
+        radial-gradient(circle at 12% 8%, rgba(57,189,248,.12), transparent 28rem),
+        radial-gradient(circle at 88% 24%, rgba(124,92,255,.14), transparent 30rem),
+        var(--bg);
+    }
+    .hero, .panel {
+      background: linear-gradient(145deg, rgba(20,22,27,.96), rgba(16,24,34,.92));
+      border-color: rgba(57,189,248,.2);
+      box-shadow: 0 20px 60px rgba(0,0,0,.32), 0 0 30px rgba(57,189,248,.06);
+    }
+    .hero h1 {
+      background: linear-gradient(100deg, #39bdf8, #7c5cff 55%, #a8ffcf);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .card { border-color: rgba(57,189,248,.16); }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 18px 35px rgba(0,0,0,.34), 0 0 24px rgba(57,189,248,.22); }
+    .thumb { aspect-ratio: 3 / 4; }
+    .section-heading, section > h2 { text-shadow: 0 0 20px rgba(57,189,248,.16); }
+    @media (max-width: 720px) { .thumb { aspect-ratio: 9 / 14; } }
   </style>
 </head>
 <body>
@@ -437,29 +461,33 @@
   ];
 
   const playablesData = [
-  
-  
-    
-    { title: "Sniper Hunting - Made with Cocos", thumb: "images/20.webp", src: "playables/SniperHunting/index.html", note: "SniperHunting-MiniClip" },
-    { title: "Block Blast", thumb: "images/19.png", src: "playables/BlockBlast/index2.html", note: "Bitcoin BlockBlast - Fumb Games" },
-    { title: "Cat Hide and Seek", thumb: "images/14.png", src: "playables/Cat/index.html", note: "Cat Hide and Seek -OZI Games" },
-
-  //{title: "Hallaween Adaptation", thumb: "images/18.png", src: "playables/IdleMine/index.html", note: "Blocks of Bitcoin - FumbGames" },    
-  {title: "Ball_Challenge", thumb: "images/17.png", src: "playables/BallBounce/index.html", note: "Ball Bounce And Merge - Moone" },  
-    {title: "Angry Mining Concept", thumb: "images/16.png", src: "playables/kitchen/index.html", note: "idle Mine - Fumb Games" },
-    { title: "Crystal Craven", thumb: "images/4.png", src: "playables/CrystalCraven/index.html", note: "idle Mine - Fumb Games" },
-    { title: "Piggy Tetris", thumb: "images/1.png", src: "playables/Piggy/index.html", note: " Idle Bitcoin Mine - FumbGames " },
-    { title: "Hero Making Tycoon", thumb: "images/10.png", src: "playables/HMT/index.html", note: "Hero Making Tycoon -TapNation" },
-    { title: "Piggy Collect", thumb: "images/5.png", src: "playables/PiggyCollect/index.html", note: "Bitcoin Miner - Fumb Games" },
-    //{ title: "Crystal Craven Upgrade Style playable", thumb: "images/3.png", src: "playables/CrystalCravenUpgrade/index.html", note: "idle Mine - Fumb Games" },
-    { title: "Doll Dress Up", thumb: "images/8.png", src: "playables/DDU/index.html", note: "Doll Dress Up - TapNation" },
-   // { title: "Cart Collect Bitcoins", thumb: "images/2.png", src: "playables/CartCollect/index.html", note: "Idle Mine - Fumb Games" },
-    { title: "Hide And Seek", thumb: "images/11.png", src: "playables/HideSeek/index.html", note: "Hide and Seek - Ozi Games" },
-    { title: "Pocket Monster Rush", thumb: "images/13.png", src: "playables/PMR/index.html", note: "Pocket Monster Rush - Tapnation" },
-   // { title: "Block Blast", thumb: "images/6.png", src: "playables/BlockBlast/index.html", note: "Bitcoin BlockBlast - Fumb Games" },
-    { title: "Robot Rat Killer", thumb: "images/7.png", src: "playables/RobotRat/index.html", note: "Robot Rat Killer - TapNation" },
-    { title: "Guess Thier Answer", thumb: "images/9.png", src: "playables/GTA/index.html", note: "Guess Thier Answer -TapNation" },
-    { title: "Hero Mkaing Tycoon Dressing", thumb: "images/12.png", src: "playables/HMT2/index.html", note: "Hero Mkaing Tycoon - Tapnation" },
+    { title: "4X Strategy Game Playable", thumb: "images/playables/4x-strategy-empire.jpg", src: "playables/4x-strategy-game-playable/index.html", note: "???????" },
+    { title: "World Solitaire", thumb: "images/playables/wordscapes-solitaire-tripledot.jpg", src: "playables/WordScapesSolitaire/index.html", note: "Tripple Dot" },
+    { title: "Blocks of Bitcoin DuckHook Playable", thumb: "images/playables/duckhook-blocks.jpg", src: "playables/blocks-of-bitcoin-duckhook/index.html", note: "Blocks of Bitcoin" },
+    { title: "Bitcoin Miner V1", thumb: "images/playables/28.jpg", src: "playables/BitcoinMinerV2/index.html", note: "Bitcoin Miner - Fumb Games" },
+    { title: "Idle Mine - Cocos", thumb: "images/playables/21.jpg", src: "playables/IdleMine/Idle Mine Cocos.html", note: "Idle Mine - Cocos" },
+    { title: "Sniper Battle - HypeGames", thumb: "images/playables/sniper-hypegames.jpg", src: "playables/SniperEmma/index.html", note: "Sniper Battle - HypeGames" },
+    { title: "Angry Mining Concept", thumb: "images/playables/16.jpg", src: "playables/kitchen/index.html", note: "Idle Mine - Fumb Games" },
+    { title: "Ball Challenge", thumb: "images/playables/17.jpg", src: "playables/BallBounce/Index.html", note: "Ball Bounce And Merge - Moone" },
+    { title: "Crystal Craven", thumb: "images/playables/4.jpg", src: "playables/CrystalCraven/index.html", note: "Idle Mine - Fumb Games" },
+    { title: "Animal Hunt - Choose Weopen - HypeGames", thumb: "images/playables/wild-boar-sniper-hunt.jpg", src: "playables/WildBoarSniperHunt/index.html", note: "Animal Hunt - Choose Weopen - HypeGames" },
+    { title: "Idle Mine - Cocos V2", thumb: "images/playables/27.jpg", src: "playables/IdleMine/idleMineCocosV2.html", note: "Idle Mine - Fumb Games" },
+    { title: "Bitcoin Empire - Infinite Click", thumb: "images/playables/23.jpg", src: "playables/BE/BE_PB_GAMEPLAY_EARN_INFINITECLICKVIDEO_V10_INT_APPLOVIN.html", note: "Bitcoin Empire - Fumb Games" },
+    { title: "Bitcoin Empire - Typing Infinite", thumb: "images/playables/24.jpg", src: "playables/BE/Be_Typing INfinie.html", note: "Bitcoin Empire - Fumb Games" },
+    { title: "Bitcoin Empire - Story", thumb: "images/playables/25.jpg", src: "playables/BE/Story playable.html", note: "Bitcoin Empire - Fumb Games" },
+    { title: "Bitcoin Empire With Hook", thumb: "images/playables/26.jpg", src: "playables/BE/BE_AI/index.html", note: "Bitcoin Empire - Fumb Games" },
+    { title: "Sniper Hunting - Variant 3", thumb: "images/playables/20.jpg", src: "playables/SniperHunting/index3.html", note: "Sniper Hunting - HypeGames" },
+    { title: "Block Blast", thumb: "images/playables/19.jpg", src: "playables/BlockBlast/index.html", note: "Bitcoin BlockBlast - Fumb Games" },
+    { title: "Cat Hide and Seek", thumb: "images/playables/14.jpg", src: "playables/Cat/index.html", note: "Cat Hide and Seek - OZI Games" },
+    { title: "Piggy Tetris", thumb: "images/playables/1.jpg", src: "playables/Piggy/index.html", note: "Idle Bitcoin Mine - FumbGames" },
+    { title: "Hero Making Tycoon", thumb: "images/playables/10.jpg", src: "playables/HMT/index.html", note: "Hero Making Tycoon - TapNation" },
+    { title: "Piggy Collect", thumb: "images/playables/5.jpg", src: "playables/PiggyCollect/index.html", note: "Bitcoin Miner - Fumb Games" },
+    { title: "Doll Dress Up", thumb: "images/playables/8.jpg", src: "playables/DDU/index.html", note: "Doll Dress Up - TapNation" },
+    { title: "Hide And Seek", thumb: "images/playables/11.jpg", src: "playables/HideSeek/index.html", note: "Hide and Seek - Ozi Games" },
+    { title: "Pocket Monster Rush", thumb: "images/playables/13.jpg", src: "playables/PMR/index.html", note: "Pocket Monster Rush - Tapnation" },
+    { title: "Robot Rat Killer", thumb: "images/playables/7.jpg", src: "playables/RobotRat/index.html", note: "Robot Rat Killer - TapNation" },
+    { title: "Guess Their Answer", thumb: "images/playables/9.jpg", src: "playables/GTA/index.html", note: "Guess Their Answer - TapNation" },
+    { title: "Hero Making Tycoon Dressing", thumb: "images/playables/12.jpg", src: "playables/HMT2/index.html", note: "Hero Making Tycoon - Tapnation" }
   ];
 
   const testimonialsData = [
